@@ -15,7 +15,7 @@ function App() {
           <Routes>
             <Route path="/" element={<ListingPage />} />
             <Route path="/add-new-movie" element={<AddNewMovie />} />
-            <Route path="/edit-movie" element={<EditMovie />} />
+            <Route path="/edit-movie/:movieId" element={<EditMovie />} />
           </Routes>
         </MainLayout>
       </Provider>

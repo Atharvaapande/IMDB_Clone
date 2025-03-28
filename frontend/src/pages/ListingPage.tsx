@@ -3,7 +3,7 @@ import { fetchMovies } from "../api/moviesAPI";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { setMovies } from "../features/movies/movieSlice";
 
 export default function ListingPage() {
@@ -13,7 +13,8 @@ export default function ListingPage() {
   const dispatcher = useDispatch();
   useEffect(() => {
     const assign = async () => {
-      const movies = await fetchMovies();
+      const fetchMovie = await fetchMovies();
+      const movies = fetchMovie.data;
       setMoviesState(movies);
       dispatcher(setMovies(movies));
     };
@@ -31,9 +32,7 @@ export default function ListingPage() {
             >
               <div
                 className="absolute -top-10 hidden z-20 group-hover:block w-full h-full"
-                onClick={() =>
-                  navigate("/edit-movie", { state: { movieId: item.id } })
-                }
+                onClick={() => navigate(`/edit-movie/${item.id}`)}
               >
                 <FontAwesomeIcon icon={faEdit} size="lg" color="white" />
               </div>
@@ -48,7 +47,7 @@ export default function ListingPage() {
                 />
                 <div className="bg-black/60 w-full absolute bottom-0">
                   <p className="text-sm text-white text-justify px-2 pt-2">
-                    Actors: {item?.actors.map((item: any) => item.name)}
+                    Actors: {item?.actors.map((item: any) => `${item.name},`)}
                   </p>
                   <p className="text-sm text-white text-justify px-2 pb-2">
                     producer: {item?.producer.name}

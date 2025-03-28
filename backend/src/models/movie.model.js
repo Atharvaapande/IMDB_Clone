@@ -6,6 +6,7 @@ const Producer = sequelize.define(
   "producers",
   {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+    image: { type: DataTypes.STRING },
     name: { type: DataTypes.STRING, allowNull: false },
     gender: { type: DataTypes.STRING },
     dob: { type: DataTypes.DATE },
@@ -23,6 +24,7 @@ const Movie = sequelize.define(
     year_of_release: { type: DataTypes.INTEGER },
     plot: { type: DataTypes.TEXT },
     poster: { type: DataTypes.STRING },
+    poster_landscape: { type: DataTypes.STRING },
     ratting: { type: DataTypes.INTEGER },
     producer_id: {
       type: DataTypes.INTEGER,
@@ -37,6 +39,7 @@ const Actor = sequelize.define(
   "actors",
   {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+    image: { type: DataTypes.STRING },
     name: { type: DataTypes.STRING, allowNull: false },
     gender: { type: DataTypes.STRING },
     dob: { type: DataTypes.DATE },
