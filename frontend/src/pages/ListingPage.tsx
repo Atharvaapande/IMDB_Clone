@@ -3,10 +3,22 @@ import { fetchMovies } from "../api/moviesAPI";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
-import { setMovies } from "../features/movies/movieSlice";
+
+interface Movies {
+  id: number;
+  name: string;
+  ratting: number;
+  poster: string;
+  year_of_release: number;
+  producer: {
+    name: string;
+  };
+  actors: { name: string }[];
+}
+
 
 export default function ListingPage() {
-  const [movies, setMoviesState] = useState<Movies[] | null>([]);
+  const [movies, setMoviesState] = useState<Movies[]>([]);
   const navigate = useNavigate() 
   useEffect(() => {
     const assign = async () => {
@@ -43,10 +55,12 @@ export default function ListingPage() {
                 />
                 <div className="bg-black/60 w-full absolute bottom-0">
                   <p className="text-sm text-white text-justify px-2 pt-2">
-                    Actors: {item?.actors.map((item: any) => `${item.name},`)}
+                    Actors: {item?.actors.map((actor: any, index: number) => (
+                         <span key={index}>{actor.name},</span>
+                         ))}
                   </p>
                   <p className="text-sm text-white text-justify px-2 pb-2">
-                    producer: {item?.producer.name}
+                    producer: {item?.producer?.name}
                   </p>
                 </div>
               </div>
