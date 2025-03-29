@@ -3,14 +3,11 @@ import { fetchMovies } from "../api/moviesAPI";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
 import { setMovies } from "../features/movies/movieSlice";
 
 export default function ListingPage() {
   const [movies, setMoviesState] = useState<[] | null>([]);
-  const navigate = useNavigate();
-
-  const dispatcher = useDispatch();
+  const navigate = useNavigate() 
   useEffect(() => {
     const assign = async () => {
       const fetchMovie = await fetchMovies();
@@ -18,7 +15,7 @@ export default function ListingPage() {
       setMoviesState(movies);
       dispatcher(setMovies(movies));
     };
-    assign();
+    assign()
   }, []);
 
   return (
@@ -27,7 +24,7 @@ export default function ListingPage() {
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 py-8">
           {movies?.map((item: any) => (
             <div
-              key={item?.id} // ✅ Added unique key
+              key={item?.id}
               className="relative flex flex-col items-center group space-y-2 p-4 w-11/12 rounded-lg mx-auto my-6 "
             >
               <div
