@@ -13,7 +13,6 @@ export default function ListingPage() {
       const fetchMovie = await fetchMovies();
       const movies = fetchMovie.data;
       setMoviesState(movies);
-      dispatcher(setMovies(movies));
     };
     assign()
   }, []);
