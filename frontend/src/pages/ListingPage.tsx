@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { setMovies } from "../features/movies/movieSlice";
 
 export default function ListingPage() {
-  const [movies, setMoviesState] = useState<[] | null>([]);
+  const [movies, setMoviesState] = useState<Movies[] | null>([]);
   const navigate = useNavigate() 
   useEffect(() => {
     const assign = async () => {
