@@ -1,7 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = import.meta.env.VITE_IMDB_BASE_API;
-const API_KEY = import.meta.env.VITE_API_KEY;
+const BASE_URL = https://imdb-c4qi.onrender.com/api/movies;
 
 export const fetchMovies = async () => {
   try {
