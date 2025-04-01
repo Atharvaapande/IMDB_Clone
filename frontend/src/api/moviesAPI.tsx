@@ -50,13 +50,3 @@ export const createMovie = async (formData: object) => {
   }
 };
 
-export const fetchTrendingMovie = async () => {
-  try {
-    const response = await axios.get(`${BASE_URL}?s=action&${API_KEY}`);
-    const data = response.data.Search;
-    console.log(data);
-    return data;
-  } catch (error) {
-    console.log("failed to fetch trending movies", error);
-  }
-};
