@@ -4,8 +4,33 @@ import { createMovie } from "../api/moviesAPI";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
 
+interface Actor {
+  image: string;
+  name: string;
+  gender: string;
+  dob: string;
+  bio: string;
+}
+
+interface FormData {
+  name: string;
+  year_of_release: string;
+  poster: string;
+  poster_landscape: string;
+  rating: number;
+  plot: string;
+  actors: Actor[];
+  producer: {
+    image: string;
+    name: string;
+    gender: string;
+    dob: string;
+    bio: string;
+  };
+}
+
 export default function AddNewMovie() {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormData>({
     name: "",
     year_of_release: "",
     poster: "",
@@ -162,7 +187,7 @@ export default function AddNewMovie() {
           <div>
             <p className="text-white mb-4">Actors:</p>
             <div className="flex space-x-4 overflow-x-auto">
-              {formData.actors.map((actor: any, index: number) => (
+              {formData.actors.map((actor: Actor, index: number) => (
                 <div
                   key={index}
                   className="flex flex-col relative group items-center justify-center"
