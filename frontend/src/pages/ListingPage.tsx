@@ -3,30 +3,22 @@ import { fetchMovies } from "../api/moviesAPI";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
-
-interface Movies {
-  id: number;
-  name: string;
-  ratting: number;
-  poster: string;
-  year_of_release: number;
-  producer: {
-    name: string;
-  };
-  actors: { name: string }[];
-}
-
+import { useDispatch } from "react-redux";
+import { setMovies } from "../features/movies/movieSlice";
 
 export default function ListingPage() {
-  const [movies, setMoviesState] = useState<Movies[]>([]);
-  const navigate = useNavigate() 
+  const [movies, setMoviesState] = useState<[] | null>([]);
+  const navigate = useNavigate();
+
+  const dispatcher = useDispatch();
   useEffect(() => {
     const assign = async () => {
       const fetchMovie = await fetchMovies();
       const movies = fetchMovie.data;
       setMoviesState(movies);
+      dispatcher(setMovies(movies));
     };
-    assign()
+    assign();
   }, []);
 
   return (
@@ -35,7 +27,7 @@ export default function ListingPage() {
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 py-8">
           {movies?.map((item: any) => (
             <div
-              key={item?.id}
+              key={item?.id} // ✅ Added unique key
               className="relative flex flex-col items-center group space-y-2 p-4 w-11/12 rounded-lg mx-auto my-6 "
             >
               <div
@@ -55,12 +47,10 @@ export default function ListingPage() {
                 />
                 <div className="bg-black/60 w-full absolute bottom-0">
                   <p className="text-sm text-white text-justify px-2 pt-2">
-                    Actors: {item?.actors.map((actor: any, index: number) => (
-                         <span key={index}>{actor.name},</span>
-                         ))}
+                    Actors: {item?.actors.map((item: any) => `${item.name},`)}
                   </p>
                   <p className="text-sm text-white text-justify px-2 pb-2">
-                    producer: {item?.producer?.name}
+                    producer: {item?.producer.name}
                   </p>
                 </div>
               </div>
